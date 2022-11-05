@@ -10,14 +10,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-import java.util.regex.Pattern;
+
 
 public class CreateAccountActivity extends AppCompatActivity {
 
@@ -67,12 +67,14 @@ public class CreateAccountActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         changeInProgress(false);
                         if (task.isSuccessful()){
-                            Toast.makeText(CreateAccountActivity.this,"Successfully create account, Check email to verify",Toast.LENGTH_SHORT).show();
+                            Utility.showToast(CreateAccountActivity.this,"Successfully create account, Check email to verify");
+
                             firebaseAuth.getCurrentUser().sendEmailVerification();
                             firebaseAuth.signOut();
                             finish();
                         }else {
-                            Toast.makeText(CreateAccountActivity.this,task.getException().getLocalizedMessage(),Toast.LENGTH_SHORT).show();
+                            Utility.showToast(CreateAccountActivity.this,task.getException().getLocalizedMessage());
+
                         }
                     }
                 }
